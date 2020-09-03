@@ -2,3 +2,7 @@
 /Node.class
 /State.class
 /Stack.class
+../.classpath
+../.project
+../../bin
+../../.settings
