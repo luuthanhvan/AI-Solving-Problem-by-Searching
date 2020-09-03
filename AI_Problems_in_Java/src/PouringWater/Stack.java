@@ -2,10 +2,11 @@ package PouringWater;
 
 public class Stack {
 	/* define some private attributes */
-	private Node[] nodes = new Node[100];
+	private Node[] nodes;
 	private int topIdx;
 	
 	public Stack() {
+		this.nodes = new Node[100];
 		this.topIdx = 0;
 	}
 	

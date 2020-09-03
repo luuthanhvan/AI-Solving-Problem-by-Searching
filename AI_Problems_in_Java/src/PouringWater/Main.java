@@ -10,18 +10,20 @@ public class Main {
 		Stack closeDFS = new Stack();
 		
 		Node root = new Node(state, null, 0);
+		
 		openDFS.push(root);
 		
 		while(!openDFS.isEmpty()) {
 			Node node = openDFS.pop();
-			
+
 			closeDFS.push(node);
 			
 			if(node.state.checkGoal())
 				return node;
 			
-			for(int opt = 1; opt <= MAX_OPERATOR; opt++) {
+			for(int opt = 1; opt <= 6; opt++) {
 				State newState = new State();
+				
 				boolean isValidState = node.state.callOperator(newState, opt);
 				
 				if(isValidState) {
@@ -31,6 +33,7 @@ public class Main {
 						continue;
 					
 					openDFS.push(newNode);
+//					newNode.state.printState();
 				}
 			}
 		}
@@ -39,13 +42,14 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		State state = new State();
+		State state = new State(2, 4);
 		Node node = dfs(state);
 		if(node != null) {
+			System.out.println("Goal state: ");
 			node.state.printState();
 		}
 		else {
-			System.out.println("No success");
+			System.out.println("Cannot reach the goal state!");
 		}
 		/*
 		// Test 
@@ -64,24 +68,23 @@ public class Main {
 			}
 		}*/
 		
-//		State state1 = new State(0, 0, 9, 4, 6);
-//		State state2 = new State(9, 0, 9, 4, 6);
-//		State state3 = new State(0, 4, 9, 4, 6);
+//		State state1 = new State(5, 4);
+//		State state2 = new State(4, 5);
+//		State state3 = new State(9, 0);
+//		State state4 = new State(4, 0);
+//		
 //		Node node1 = new Node(state1, null, 0);
 //		Node node2 = new Node(state2, node1, 1);
 //		Node node3 = new Node(state3, node2, 2);
+//		Node node4 = new Node(state4, node3, 3);
 //		
 //		Stack stack = new Stack();
 //		stack.push(node1);
 //		stack.push(node2);
 //		stack.push(node3);
-//		
-//		while(!stack.isEmpty()) {
-//			Node node = stack.pop();
-//			if((node.state.getX() == node2.state.getX()) && (node.state.getY() == node2.state.getY()))
-//				System.out.println("node and node1 are equal");
-//		}
-//		System.out.println(stack.findNode(node2));
+		
+//		stack.display();
+//		System.out.println(stack.findNode(node4));
 		
 //		State newState = new State();
 //		boolean isValidOperator = state.callOperator(newState, 1);
