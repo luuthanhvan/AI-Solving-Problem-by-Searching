@@ -4,36 +4,57 @@ public class Stack {
 	/* define some private attributes */
 	private Node[] nodes;
 	private int topIdx;
+	private int capacity; // save the size of Stack
 	
-	public Stack() {
-		this.nodes = new Node[100];
-		this.topIdx = 0;
-	}
-	
-	public boolean isEmpty() {
-		return this.topIdx == 0;
+	public Stack(int size) {
+		this.nodes = new Node[size];
+		this.topIdx = -1;
+		this.capacity = size;
 	}
 	
 	public void push(Node newNode) {
-		this.nodes[this.topIdx++] = newNode;
+		if(this.isFull()) {
+			System.out.println("Error! Stack is full.");
+			System.exit(1); // terminates the program
+		}
+		else {
+			this.nodes[++this.topIdx] = newNode;
+		}
 	}
 	
 	public Node pop() {
-		return this.nodes[--this.topIdx];
+		if(this.isEmpty()) {
+			System.out.println("Error! Stack is empty.");
+			System.exit(1);
+		}
+		// return this node and remove it
+		return this.nodes[this.topIdx--];	
+	}
+	
+	public int getSize() {
+		return this.topIdx+1;
+	}
+	
+	public boolean isEmpty() {
+		return this.topIdx == -1;
+	}
+	
+	public boolean isFull() {
+		return this.topIdx == this.capacity-1;
 	}
 	
 	public boolean findNode(Node node) {
-		while(!this.isEmpty()) {
-			Node curNode = this.pop();
-			if(node.state.compareState(curNode.state))
+		for(int i = 0; i <= this.topIdx; i++) {
+			Node curNode = this.nodes[i];
+			if(curNode.state.compareState(node.state))
 				return true;
 		}
 		return false;
 	}
 	
-	public void display() {
-		while(!this.isEmpty()) {
-			Node curNode = this.pop();
+	public void printStack() {
+		for(int i = 0; i <= this.topIdx; i++) {
+			Node curNode = this.nodes[i];
 			curNode.state.printState();
 		}
 	}
