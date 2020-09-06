@@ -1,4 +1,4 @@
-package PouringWater;
+package pouring_water;
 
 public class State {
 	/* define some private attributes */
@@ -133,4 +133,4 @@ public class State {
 				return false;
 		}
 	}
-}	
+}

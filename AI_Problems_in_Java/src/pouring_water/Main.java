@@ -1,4 +1,4 @@
-package PouringWater;
+package pouring_water;
 
 public class Main {
 	static int MAX_OPERATOR = 6;
@@ -15,6 +15,8 @@ public class Main {
 		
 		while(!openDFS.isEmpty()) {
 			Node node = openDFS.pop();
+			
+			closeDFS.push(node);
 			
 			if(node.state.checkGoal())
 				return node;
@@ -78,7 +80,7 @@ public class Main {
 //		stack.push(node1);
 //		stack.push(node2);
 //		stack.push(node3);
-		
+//		
 //		stack.printStack();
 //		System.out.println(stack.findNode(node3));
 		

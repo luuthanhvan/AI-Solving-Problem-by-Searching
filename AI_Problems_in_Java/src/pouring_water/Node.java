@@ -1,4 +1,4 @@
-package PouringWater;
+package pouring_water;
 
 public class Node {
 	/* some private attributes */
