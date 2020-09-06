@@ -39,6 +39,37 @@ public class Main {
 		return null;
 	}
 
+	public static Node bfs(State state) {
+		Queue openBFS = new Queue(100);
+		Queue closeBFS = new Queue(100);
+		
+		Node root = new Node(state, null, 0);
+		
+		openBFS.enQueue(root);
+		
+		while(!openBFS.isEmpty()) {
+			Node node = openBFS.deQueue();
+			
+			closeBFS.enQueue(node);
+			
+			if(node.state.checkGoal())
+				return node;
+			
+			for(int opt = 1; opt <= 6; opt++) {
+				State newState = new State();
+				boolean isValidState = node.state.callOperator(newState, opt);
+				
+				if(isValidState) {
+					Node newNode = new Node(newState, node, opt);
+					
+					if(openBFS.findNode(newNode) || closeBFS.findNode(newNode))
+						continue;
+					
+					openBFS.enQueue(newNode);
+				}
+			}
+		}
+
 	public static void printWayToGetGoal(Node node) {
 		Stack stackPrint = new Stack(50);
 		while(node.parent != null){
@@ -57,7 +88,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		State state = new State(0, 0);
-		Node node = dfs(state);
+//		Node node = dfs(state);
+		Node node = bfs(state);
 		if(node != null) {
 //			System.out.println("Goal state: ");
 //			node.state.printState();
@@ -65,9 +97,10 @@ public class Main {
 		}
 		else {
 			System.out.println("Cannot reach the goal state!");
-		}
-		/*
+	
+		
 		// Test 
+		/*
 		State state = new State(5, 4);
 		System.out.println("Start state: ");
 		state.printState();
