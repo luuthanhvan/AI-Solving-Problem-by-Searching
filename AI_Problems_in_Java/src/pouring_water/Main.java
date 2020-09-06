@@ -38,13 +38,30 @@ public class Main {
 		
 		return null;
 	}
+
+	public static void printWayToGetGoal(Node node) {
+		Stack stackPrint = new Stack(50);
+		while(node.parent != null){
+			stackPrint.push(node);
+			node = node.parent;
+		}
+		stackPrint.push(node); // start node
+		
+		int noAction = 0;
+		while(!stackPrint.isEmpty()){
+			Node curNode = stackPrint.pop();
+			System.out.println("Action " + (noAction++) + ": " + actions[curNode.noFunction]);
+			curNode.state.printState();
+		}
+	}
 	
 	public static void main(String[] args) {
 		State state = new State(0, 0);
 		Node node = dfs(state);
 		if(node != null) {
-			System.out.println("Goal state: ");
-			node.state.printState();
+//			System.out.println("Goal state: ");
+//			node.state.printState();
+			printWayToGetGoal(node);
 		}
 		else {
 			System.out.println("Cannot reach the goal state!");
